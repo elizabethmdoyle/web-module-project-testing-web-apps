@@ -5,13 +5,21 @@ import userEvent from '@testing-library/user-event';
 import ContactForm from './ContactForm';
 
 test('renders without errors', () => {
-    render(<ContactForm />)
+    render(<ContactForm />);
  });
 
-// test('renders the contact form header', () => {
-//     const header = screen.getByRole('h1');
-//     expect('Contact Form').toBeInTheDocument();
-// });
+ //need to test it exists, show 3 different asserts
+ //we expect it to be truthy, to be in the document, and verify it has the correct content
+test('renders the contact form header', () => {
+    render(<ContactForm />);
+
+    const headerElement = screen.queryByText(/contact form/i);
+    //console.log(headerElement);
+    expect(headerElement).toBeInTheDocument();
+    expect(headerElement).toBeTruthy();
+    expect(headerElement).toHaveTextContent(/contact form/i);
+    
+});
 
 // test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
 //         const firstNameInput = screen.getByLabelText(/first name/i);
