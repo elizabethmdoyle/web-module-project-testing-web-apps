@@ -21,16 +21,30 @@ test('renders the contact form header', () => {
     
 });
 
-// test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
-//         const firstNameInput = screen.getByLabelText(/first name/i);
-//         userEvent.type(firstNameInput, 'foo');
-//         const errorInput = screen.getByTestId(/error/);
+//because state is changing, we are using async and await to account for the state change
 
-// });
+test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
+   //each test must render the component that needs to be seen and tested on
+    render(<ContactForm />);   
+    
+    const firstNameInput = screen.getByLabelText(/first name/i);
+        userEvent.type(firstNameInput, 'foo');
 
-// test('renders THREE error messages if user enters no values into any fields.', async () => {
+        const errorMessages = await screen.findByTestId('error');
+        expect(errorMessages).toHaveLength(1);
+});
 
-// });
+test('renders THREE error messages if user enters no values into any fields.', async () => {
+
+    render(<ContactForm />);   
+
+    const submitButton = screengetByRole('button');
+    userEvent.click(submitButton);
+
+    const errorMessages = await screen.findByTestId('error');
+        expect(errorMessages).toHaveLength(3);
+
+});
 
 // test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
 
